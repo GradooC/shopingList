@@ -1,0 +1,68 @@
+.remove-btn {
+  margin-left: auto;
+  opacity: 0;
+  transition: all .3s;
+}
+
+.add-btn-modal {
+  margin-top: 1rem;
+}
+
+.add-btn {
+  margin-bottom: 1rem;
+}
+
+.list-item {
+  display: flex;
+}
+
+.list-item:hover .remove-btn {
+  opacity: 1;
+  transition: all .3s;
+}
+
+.btn-container {
+  text-align: center;
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  70% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes disappear {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  30% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+
+.scale-fade-enter-active {
+  animation: appear .5s ease-in;
+}
+
+.scale-fade-exit-active {
+  animation: disappear .5s ease-in forwards;
+}
