@@ -1,14 +1,20 @@
-import React from "react";
-import { useEffect } from "react";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { connect } from "react-redux";
-import { getItems, deleteItem } from "../actions/itemActions";
-import PropTypes from "prop-types";
+import React from 'react';
+import { useEffect } from 'react';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { connect } from 'react-redux';
+import { getItems, deleteItem } from '../actions/itemActions';
+import PropTypes from 'prop-types';
 
-import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
+import {
+  Container,
+  ListGroup,
+  ListGroupItem,
+  Button,
+  Spinner
+} from 'reactstrap';
 
 const ShopingList = props => {
-  const { items, getItems, deleteItem } = props;
+  const { items, getItems, deleteItem, isAuthenticated, loading } = props;
 
   const onDeleteClick = id => () => {
     deleteItem(id);
@@ -16,7 +22,9 @@ const ShopingList = props => {
 
   useEffect(getItems, []);
 
-  return (
+  return loading ? (
+    <Spinner className="spinner" color="info" />
+  ) : (
     <Container>
       <ListGroup>
         <TransitionGroup className="shoping-list">
@@ -29,14 +37,14 @@ const ShopingList = props => {
             >
               <ListGroupItem>
                 {name}
-                <Button
-                  onClick={onDeleteClick(_id)}
-                  className="remove-btn"
-                  size="sm"
-                  color="danger"
-                >
-                  &times;
-                </Button>
+                {isAuthenticated ? (
+                  <Button
+                    close
+                    onClick={onDeleteClick(_id)}
+                    className="remove-btn"
+                    size="sm"
+                  />
+                ) : null}
               </ListGroupItem>
             </CSSTransition>
           ))}
@@ -48,11 +56,16 @@ const ShopingList = props => {
 
 ShopingList.propTypes = {
   getItems: PropTypes.func.isRequired,
-  items: PropTypes.object.isRequired
+  deleteItem: PropTypes.func.isRequired,
+  items: PropTypes.array.isRequired,
+  isAuthenticated: PropTypes.bool,
+  loading: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = state => ({
-  items: state.items.items
+  items: state.items.items,
+  isAuthenticated: state.auth.isAuthenticated,
+  loading: state.items.loading
 });
 
 export default connect(

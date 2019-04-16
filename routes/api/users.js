@@ -10,7 +10,7 @@ const User = require("../../models/User");
 // @route GET api/users
 // @desc Register new user
 // @access Public
-router.get("/", (req, res) => {
+router.post("/", (req, res) => {
   const { name, email, password } = req.body;
 
   // Simple validation

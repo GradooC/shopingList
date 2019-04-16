@@ -1,7 +1,12 @@
 .remove-btn {
   margin-left: auto;
+  color: #dc3545;
   opacity: 0;
   transition: all .3s;
+}
+
+.remove-btn:focus {
+  outline: none;
 }
 
 .add-btn-modal {
@@ -23,6 +28,11 @@
 
 .btn-container {
   text-align: center;
+}
+
+.spinner {
+  display: block;
+  margin: 3rem auto;
 }
 
 @keyframes appear {
